@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>face emotion detections</title>
+  <link rel="stylesheet" type="text/css" href="../static/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body>
+  <div class="container">
+    {% for record in page_obj %}
+    <div class="title-artists">
+      <h1>{{ record.title }}</h1>
+      <h1>{{ record.artist }}</h1>
+    </div>
+    <div class="player">
+      <audio controls id="player">
+        <source src="{{ record.audio_file.url }}" type="audio/mp3">
+      </audio>
+    <div class="navigation">
+      <button id="previousButton" {% if not page_obj.has_previous %}disabled{% endif %}><i class="fas fa-chevron-left"></i> Previous</button>
+      <button id="nextButton" {% if not page_obj.has_next %}disabled{% endif %}>Next <i class="fas fa-chevron-right"></i></button>
+    </div>
+    {% endfor %}
+    <div class="all_song">
+      {% for songs in all_song %}
+      <h3>{{songs.title}} - {{songs.artist}}</h3>
+      {% endfor %}
+    </div>
+    <!-- <img src="{% url 'video_feed' %}"> -->
+
+    <div id="emotionText">Emotions: </div>
+    
+    <form action="" method="post"  class="form-section" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="text" name="title" id="titleInput" placeholder="Title.." required>
+      <input type="text" name="artist" id="artistInput" placeholder="Artist.." required>
+      <label for="file">Song file</label>
+      <input type="file" name="new_audio_file" id="audioFileInput">
+      <button type="submit" class="addBtn">Add</button>
+    </form>
+
+
+  </div>
+
+  <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+  <script>
+    document.getElementById("previousButton").addEventListener("click", function() {
+      window.location.href = "?page={{ page_obj.previous_number }}";
+    });
+
+    document.getElementById("nextButton").addEventListener("click", function() {
+      window.location.href = "?page={{ page_obj.next_page_number }}";
+    });
+    function fetch_emotions() {
+        $.ajax({
+            url: '/get_emotions/',
+            success: function(data) {
+                // Update the emotion text on the webpage
+                $('#emotionText').text(data.result_emotions);
+            }
+        });
+    }
+
+    // Start fetching emotions every 1 second
+    setInterval(fetch_emotions, 10000);
+
+    // Set the video source to the video_feed endpoint
+    // document.getElementById('videoPlayer').src = '/video_feed/';
+  </script>
+</body>
+
+</html>
