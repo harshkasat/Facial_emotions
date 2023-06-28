@@ -6,6 +6,10 @@ from . models import Song
 from app.camera import VideoCamera
 from django.http import JsonResponse
 from django.http.response import HttpResponse
+import asyncio
+import json
+import time
+import threading
 
 
 
@@ -27,25 +31,47 @@ def index(request):
                                         "all_song":All_song,
 					                    })
 
-def gen(camera):
+
+latest_frame = None
+latest_result_emotions = None
+
+
+def gen(camera,cond = None):
+    
+    video_camera = VideoCamera() 
+    global latest_frame, latest_result_emotions # Create an instance of the VideoCamera class
     while True:
-        frame, result_emotions = camera.get_frame()
+        frame, result_emotions = video_camera.get_frame()
         if frame is None or result_emotions is None:
             continue
-
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n'
-               b'Emotion: ' + result_emotions.encode() + b'\r\n\r\n')
+        
+        latest_frame = frame
+        latest_result_emotions = result_emotions
+        if cond:
+            yield (b'--frame\r\n'
+                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n'
+                b'Emotion: ' + result_emotions.encode() + b'\r\n\r\n')
+        else :
+            # result_emotions = JsonResponse({"result_emotions":result_emotions})
+            return JsonResponse({"result_emotions":result_emotions})
+             
 
 
 def video_feed(request):
-	return StreamingHttpResponse(gen(VideoCamera()),
-					content_type='multipart/x-mixed-replace; boundary=frame')
+    cond = True  # Set the value of cond based on your requirement
+    if cond:
+        return StreamingHttpResponse(gen(VideoCamera(), cond=cond),
+                                     content_type='multipart/x-mixed-replace; boundary=frame')
+    else:
+        # Obtain the JSON response from gen function and return it as HttpResponse
+        # json_response = next(gen(VideoCamera(), cond=cond))
+        return JsonResponse({"result_emotions":""})
+
+
 
 def get_emotions(request):
-	# for results in emotions.
-        camera = VideoCamera()
-        result_emotions = camera.result_emotions()
-        if result_emotions is None:
-             return HttpResponse(status =204)
-        return JsonResponse({"result_emotions":result_emotions})
+    global latest_result_emotions
+    if latest_result_emotions is None:
+        return JsonResponse({"result_emotions": ""})
+    else:
+        return JsonResponse({"result_emotions": latest_result_emotions})

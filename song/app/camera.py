@@ -9,7 +9,18 @@ face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_fronta
 
 class VideoCamera(object):
 	def __init__(self):
-		self.video = cv2.VideoCapture(0, cv2.CAP_MSMF)
+		# self.video = cv2.VideoCapture(0,cv2.CAP_V4L2)
+		# self.video = cv2.VideoCapture(0)
+		self.video = cv2.VideoCapture(cv2.CAP_MSMF)
+		self.video.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+
+		self.video.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+
+		self.video.set(cv2.CAP_PROP_FOURCC, 0x32595559)
+
+		self.video.set(cv2.CAP_PROP_FPS, 25)
+
+
 
 	def __del__(self):
 		self.video.release()
@@ -17,7 +28,7 @@ class VideoCamera(object):
 	def get_frame(self):
 		success, image = self.video.read()
 		result_emotions = ""
-		if not success :
+		if not success  or image is None:
 			return None, None
 		emotions = {
 			0: ['Angry', (0, 0, 255), (255, 255, 255)], 
@@ -41,23 +52,6 @@ class VideoCamera(object):
 		# Resize the image
 		resized_image = cv2.resize(frame, (new_width, new_height))
 		ret, jpeg = cv2.imencode('.jpg', resized_image)
+		print(result_emotions)
 		return jpeg.tobytes(), result_emotions
 	
-
-	def result_emotions(self):
-		success, image = self.video.read()
-		if image is None:
-			return None
-		emotions = {
-			0: ['Angry', (0, 0, 255), (255, 255, 255)], 
-			1: ['Disgust', (0, 102, 0), (255, 255, 255)],
-			2: ['Fear', (255, 255, 153), (0, 51, 51)],
-			3: ['Happy', (153, 0, 153), (255, 255, 255)],
-			4: ['Sad', (255, 0, 0), (255, 255, 255)],
-			5: ['Surprise', (0, 255, 0), (255, 255, 255)],
-			6: ['Neutral', (160, 160, 160), (255, 255, 255)],
-		}
-		frame, faces, pos, l, result_emotions = inference(image)
-
-
-		return result_emotions

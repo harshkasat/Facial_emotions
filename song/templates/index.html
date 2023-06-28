@@ -57,20 +57,18 @@
       window.location.href = "?page={{ page_obj.next_page_number }}";
     });
     function fetch_emotions() {
-        $.ajax({
-            url: '/get_emotions/',
-            success: function(data) {
-                // Update the emotion text on the webpage
-                $('#emotionText').text(data.result_emotions);
-            }
-        });
+    $.ajax({
+        url: '/get_emotions/',
+        success: function(data) {
+            // Update the emotion text on the webpage
+            $('#emotionText').text(data.result_emotions);
+        }
+    });
     }
+    // Start fetching emotions every 10 seconds
+    setInterval(fetch_emotions, 1000);
+    
 
-    // Start fetching emotions every 1 second
-    setInterval(fetch_emotions, 10000);
-
-    // Set the video source to the video_feed endpoint
-    // document.getElementById('videoPlayer').src = '/video_feed/';
   </script>
 </body>
 
