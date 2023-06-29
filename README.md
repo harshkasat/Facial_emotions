@@ -47,18 +47,18 @@ To contribute to this project, follow the steps below:
 
 ## Install the dependencies
 
-* To install dependencies first you need to make python environment . Use this command in cmd in specified directory
+* To install dependencies first you need to make a python environment. Use this command in cmd in the specified directory
 
 * ``` Python version 3.11.2```
-* Create python environment:
+* Create Python environment:
  ``` python -m venv .venv ```
-* Activate python environment:
+* Activate Python environment:
  ``` .\.venv\Scripts\activate```
 
 * To install dependencies
 ``` pip install -r requirements.txt ```
 
-* To deactivate python environment
+* To deactivate the Python environment
  ``` deactivate ```
 
 
@@ -71,7 +71,7 @@ To contribute to this project, follow the steps below:
 
 <br>
 
-## Demo of webpage 
+## Demo of the webpage 
 <br>
 
 ![Demo of Webpage](./readme-img/webpage.jpg)
@@ -81,14 +81,10 @@ Before you start working on the project, please review our [contributing guideli
 
 # Code of Conduct
 
-We are committed to providing a friendly, safe, and welcoming environment for all contributors. Please review our [code of conduct](CODE_OF_CONDUCT.md) to understand our expectations and how to report any unacceptable behavior.
+We are committed to providing a friendly, safe, and welcoming environment for all contributors. Please review our [code of conduct](CODE_OF_CONDUCT.md) to understand our expectations and how to report any unacceptable behaviour.
 
 # Contact
 
 If you have any questions or need further assistance, feel free to reach out to us. Let's connect and inspire each other! 🔗
 
 # License
-
-This project is licensed under the [MIT License](LICENSE).
-
-**Hashtags:** #OpenSourceProject #MachineLearning #WebDevelopment #GitHub #CommunityEngagement #JavaScript #Django #FrontendDevelopment #EmotionDetection #MoodBasedMusicPlayer #VGGNet #OpenCV
