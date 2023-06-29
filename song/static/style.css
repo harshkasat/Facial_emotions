@@ -23,10 +23,52 @@ body {
   font-size: 32px;
 }
 
+/* Style the player container */
 .player {
+  display: flex;
+  justify-content: center;
   margin-bottom: 20px;
-  align-items: center;
 }
+
+/* Style the audio player */
+.player audio {
+  width: 100%;
+}
+
+/* Style the buttons */
+.player button {
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+/* Style the current time display */
+.player #currentTime {
+  font-weight: bold;
+  position: relative;
+}
+
+.player #currentTime::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #3498db;
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+}
+
+/* Style the time remaining display */
+.player #timeRemaining {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
 
 .navigation {
   display: flex;

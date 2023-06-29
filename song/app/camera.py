@@ -52,6 +52,5 @@ class VideoCamera(object):
 		# Resize the image
 		resized_image = cv2.resize(frame, (new_width, new_height))
 		ret, jpeg = cv2.imencode('.jpg', resized_image)
-		print(result_emotions)
 		return jpeg.tobytes(), result_emotions
 	

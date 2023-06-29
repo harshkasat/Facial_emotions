@@ -7,7 +7,6 @@
   <title>face emotion detections</title>
   <link rel="stylesheet" type="text/css" href="../static/style.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 </head>
 
 <body>
@@ -18,9 +17,14 @@
       <h1>{{ record.artist }}</h1>
     </div>
     <div class="player">
-      <audio controls id="player">
+      <audio id="player">
         <source src="{{ record.audio_file.url }}" type="audio/mp3">
+        Your browser does not support the audio element.
       </audio>
+      <button id="playButton"><i class="fas fa-chevron-left"></i>Play</button>
+      <button id="pauseButton"><i class="fas fa-chevron-left"></i>Pause</button>
+      <span id="currentTime"></span>
+    </div>
     <div class="navigation">
       <button id="previousButton" {% if not page_obj.has_previous %}disabled{% endif %}><i class="fas fa-chevron-left"></i> Previous</button>
       <button id="nextButton" {% if not page_obj.has_next %}disabled{% endif %}>Next <i class="fas fa-chevron-right"></i></button>
@@ -32,11 +36,9 @@
       {% endfor %}
     </div>
     <img src="{% url 'video_feed' %}">
-
     <div id="emotionText">Emotions: </div>
-    
     <h1>Add Song</h1>
-    <form action="" method="post"  class="form-section" enctype="multipart/form-data">
+    <form action="" method="post" class="form-section" enctype="multipart/form-data">
       {% csrf_token %}
       <input type="text" name="title" id="titleInput" placeholder="Title.." required>
       <input type="text" name="artist" id="artistInput" placeholder="Artist.." required>
@@ -44,33 +46,9 @@
       <input type="file" name="new_audio_file" id="audioFileInput">
       <button type="submit" class="addBtn">Add</button>
     </form>
-
-
   </div>
-
   <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
-  <script>
-    document.getElementById("previousButton").addEventListener("click", function() {
-      window.location.href = "?page={{ page_obj.previous_number }}";
-    });
-
-    document.getElementById("nextButton").addEventListener("click", function() {
-      window.location.href = "?page={{ page_obj.next_page_number }}";
-    });
-    function fetch_emotions() {
-    $.ajax({
-        url: '/get_emotions/',
-        success: function(data) {
-            // Update the emotion text on the webpage
-            $('#emotionText').text(data.result_emotions);
-        }
-    });
-    }
-    // Start fetching emotions every 10 seconds
-    setInterval(fetch_emotions, 1000);
-    
-
-  </script>
+  <script src="../static/scripts.js"></script>
 </body>
 
 </html>
