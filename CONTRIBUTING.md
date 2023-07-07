@@ -1,12 +1,12 @@
-# Contributing to [Project Name]
+# Contributing to [Facial_emotions]
 <br>
 
-Thank you for considering contributing to [Project Name]! We welcome contributions from everyone who is interested in improving the project. By contributing, you not only help us build a better application but also gain valuable experience and have the opportunity to showcase your skills.
+Thank you for considering contributing to [Facial_emotions]! We welcome contributions from everyone who is interested in improving the project. By contributing, you not only help us build a better application but also gain valuable experience and have the opportunity to showcase your skills.
 <br>
 
 ## Getting Started
 
-To start contributing to [Project Name], please follow these steps:
+To start contributing to [Facial_emotions], please follow these steps:
 
 1. Fork the repository on GitHub.
 
@@ -107,9 +107,9 @@ Please review and adhere to our [Code of Conduct](CODE_OF_CONDUCT.md). We expect
 
 ## Contact
 
-If you have any questions or need further assistance, feel free to reach out to us through [CONTACT_EMAIL].
+If you have any questions or need further assistance, feel free to reach out to us through [harshkasat01@gmail.com].
 
-We appreciate your interest in contributing to [Project Name]! Thank you for your support.
+We appreciate your interest in contributing to [Facial_emotions] Thank you for your support.
 
 **Hashtags:** #OpenSourceProject #MachineLearning #WebDevelopment #GitHub #CommunityEngagement #JavaScript #Django #FrontendDevelopment #EmotionDetection #MoodBasedMusicPlayer #VGGNet #OpenCV
 
